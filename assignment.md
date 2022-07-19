@@ -5,3 +5,5 @@ Create a console application to build a calculator
 - Accept second number
 - Accept operator
 - Display result after calculating using the above 3 inputs
+
+Commit your code into a feature branch named after you i.e. *feature/markandey* and push code to the repository
