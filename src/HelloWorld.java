@@ -4,6 +4,8 @@ public class HelloWorld {
     public static void main(String[] args) {
         int sum = 0;
         int i = 0;
+//        test code for git commit and push
+        int j = 0;
         while (i < args.length) {
             sum = sum + Integer.parseInt(args[i]);
             i++;
