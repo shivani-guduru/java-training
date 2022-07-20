@@ -9,13 +9,14 @@ public class calculatorCLI {
             System.out.print("\n");
             System.out.print("\n");
             System.out.print("Enter first num: ");
-            int first_num  = scanner.nextInt();
+            int first_num = scanner.nextInt();
             System.out.print("Enter second num: ");
             int second_num = scanner.nextInt();
             // used to skip the newline
             scanner.nextLine();
             System.out.print("Enter the operation: ");
             oper = scanner.nextLine();
+            System.out.print(oper);
             switch (oper) {
                 case "+":
                     int sum = first_num + second_num;
@@ -23,7 +24,7 @@ public class calculatorCLI {
                     break;
                 case "-":
                     int diff = first_num - second_num;
-                    System.out.print("The sum of two numbers is: " + diff);
+                    System.out.print("The difference of two numbers is: " + diff);
                     break;
                 case "/":
                     int div = first_num / second_num;

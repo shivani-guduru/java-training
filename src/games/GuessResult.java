@@ -1,5 +1,5 @@
 package games;
 
 public enum GuessResult {
-    CORRECT, HIGHER, LOWER
+    STARTED, CORRECT, HIGHER, LOWER, WRONG,
 }
