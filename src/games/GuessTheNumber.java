@@ -8,6 +8,8 @@ public class GuessTheNumber {
     private int number;
     private int guessCount = 1;
     private int gameCount = 0;
+    private boolean startGame = true;
+    private boolean showBanner = true;
     private int wins = 0;
     private int loss = 0;
     private String contiGame = "No";
@@ -19,6 +21,10 @@ public class GuessTheNumber {
      * */
     private void generateRandomNumber() {
         number = random.nextInt(1, 51);
+        System.out.println();
+        System.out.println(cliColorText.WHITE_BOLD_BRIGHT + "New" + cliColorText.BLUE_BOLD_BRIGHT + " GUESS NUMBER " + cliColorText.WHITE_BOLD_BRIGHT + "has been generated." + cliColorText.RESET);
+        System.out.println(cliColorText.YELLOW_BOLD_BRIGHT + "Start Guessing Now!!" + cliColorText.RESET);
+        System.out.println();
     }
 
 
@@ -27,7 +33,11 @@ public class GuessTheNumber {
      * */
     private int promptGuessFromUser() {
         System.out.print(cliColorText.WHITE_BOLD_BRIGHT);
-        System.out.print("Enter your guess:");
+        if (guessCount < 5) {
+            System.out.print("Enter your guess: ");
+        } else {
+            System.out.print("** Last Chance ** : ");
+        }
         System.out.print(cliColorText.RESET);
         return scanner.nextInt();
     }
@@ -58,7 +68,7 @@ public class GuessTheNumber {
             wins++;
 //            continueGame();
         } else if (result == GuessResult.HIGHER) {
-            System.out.println("You have guessed " + cliColorText.YELLOW +"HIGHER");
+            System.out.println("You have guessed " + cliColorText.YELLOW + "HIGHER");
             System.out.println(cliColorText.RESET);
         } else if (result == GuessResult.WRONG) {
             System.out.println(cliColorText.RED_BOLD_BRIGHT);
@@ -81,6 +91,17 @@ public class GuessTheNumber {
         System.out.print("Do you want to continue the game " + cliColorText.WHITE_BOLD_BRIGHT + "(" + cliColorText.GREEN_BRIGHT + "Yes" + cliColorText.WHITE_BOLD_BRIGHT + "/" + cliColorText.RED_BRIGHT + "No" + cliColorText.WHITE_BOLD_BRIGHT + ")" + cliColorText.RESET + ": ");
         continueOrNot = scanner.next();
         System.out.println();
+        if (gameCount == 1 && (continueOrNot.equals("Yes") || continueOrNot.equals("yes") || continueOrNot.equals("Y") || continueOrNot.equals("y"))) {
+            String bannerHideInput = "";
+            System.out.print("Is the BANNER annoying, Should it be hidden (P.S. Decide now it's a 'one time question')?" + cliColorText.WHITE_BOLD_BRIGHT + "(" + cliColorText.GREEN_BRIGHT + "Yes" + cliColorText.WHITE_BOLD_BRIGHT + "/" + cliColorText.RED_BRIGHT + "No" + cliColorText.WHITE_BOLD_BRIGHT + ")" + cliColorText.RESET + ": ");
+            bannerHideInput = scanner.next();
+            System.out.println();
+            if (bannerHideInput.equals("Yes") || bannerHideInput.equals("yes") || bannerHideInput.equals("Y") || bannerHideInput.equals("y")) {
+                showBanner = false;
+            } else {
+                showBanner = true;
+            }
+        }
 //        System.out.println("value is " + continueOrNot);
         if (continueOrNot.equals("Yes") || continueOrNot.equals("yes") || continueOrNot.equals("Y") || continueOrNot.equals("y")) {
             guessCount = 1;
@@ -106,30 +127,49 @@ public class GuessTheNumber {
      * function to run the Game
      * */
     public void run() {
-        gameCount++;
-        System.out.println();
-        System.out.println("***************************************************");
-        System.out.println("**********" + cliColorText.BLUE_BOLD_BRIGHT + " WELCOME TO GUESS THE NUMBER " + cliColorText.RESET + "************");
-        System.out.println("*********************" + cliColorText.RED_BOLD_BRIGHT +  " Rules " + cliColorText.RESET + "***********************");
-        System.out.println("**" + cliColorText.YELLOW_BOLD_BRIGHT + " ->" + cliColorText.RESET + cliColorText.WHITE_BOLD_BRIGHT + " ONLY 5 GUESSES to find the RIGHT number " + cliColorText.YELLOW_BOLD_BRIGHT + "<- " + cliColorText.RESET + "**");
-        System.out.println("**" + cliColorText.YELLOW_BOLD_BRIGHT + " ->" + cliColorText.RESET + cliColorText.WHITE_BOLD_BRIGHT + " Do not keep a sad face while playing!!! " + cliColorText.YELLOW_BOLD_BRIGHT + "<- " + cliColorText.RESET + "**");
-        System.out.println("***************************************************");
-        System.out.println(cliColorText.RESET);
 
-        generateRandomNumber();
-
-        GuessResult finalResult = GuessResult.STARTED;
-        while (guessCount <= MAX_GUESSES) {
-            int guess = promptGuessFromUser();
-            guessCount++;
-            GuessResult result = checkGuess(guess);
-            displayResult(result);
-            finalResult = result;
-            if (result == GuessResult.CORRECT) {
-                break;
-            }
-//            System.out.println(guessCount);
+        if (showBanner == true) {
+            System.out.println();
+            System.out.println(cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET + cliColorText.WHITE_BOLD_BRIGHT + "                                                 " + cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET);
+            System.out.println(cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET + "         " + cliColorText.BLUE_BOLD_BRIGHT + " WELCOME TO GUESS THE NUMBER " + cliColorText.RESET + "           " + cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET);
+            System.out.println(cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET + "                    " + cliColorText.RED_BOLD_BRIGHT + " Rules:" + cliColorText.RESET + "                      " + cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET);
+            System.out.println(cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET + " " + cliColorText.YELLOW_BOLD_BRIGHT + " ->" + cliColorText.RESET + cliColorText.WHITE_BOLD_BRIGHT + " ONLY 5 GUESSES to find the RIGHT number " + cliColorText.YELLOW_BOLD_BRIGHT + "<- " + cliColorText.RESET + " " + cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET);
+            System.out.println(cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET + " " + cliColorText.YELLOW_BOLD_BRIGHT + " ->" + cliColorText.RESET + cliColorText.WHITE_BOLD_BRIGHT + " Do not keep a sad face while playing!!! " + cliColorText.YELLOW_BOLD_BRIGHT + "<- " + cliColorText.RESET + " " + cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET);
+            System.out.println(cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET + cliColorText.WHITE_BOLD_BRIGHT + "                                                 " + cliColorText.WHITE_BACKGROUND_BRIGHT + "*" + cliColorText.RESET);
+            System.out.println(cliColorText.RESET);
         }
-        continueGame();
+        gameCount++;
+
+        if (gameCount == 1) {
+            String startGameOrNot = "";
+            System.out.print("Shall we begin " + cliColorText.WHITE_BOLD_BRIGHT + "(" + cliColorText.GREEN_BRIGHT + "Yes" + cliColorText.WHITE_BOLD_BRIGHT + "/" + cliColorText.RED_BRIGHT + "No" + cliColorText.WHITE_BOLD_BRIGHT + ")" + cliColorText.RESET + ": ");
+            startGameOrNot = scanner.next();
+            System.out.println();
+            if (startGameOrNot.equals("Yes") || startGameOrNot.equals("yes") || startGameOrNot.equals("Y") || startGameOrNot.equals("y")) {
+                startGame = true;
+            } else {
+                startGame = false;
+            }
+        } else {
+            startGame = true;
+        }
+
+        if (startGame == true) {
+            generateRandomNumber();
+
+            GuessResult finalResult = GuessResult.STARTED;
+            while (guessCount <= MAX_GUESSES) {
+                int guess = promptGuessFromUser();
+                guessCount++;
+                GuessResult result = checkGuess(guess);
+                displayResult(result);
+                finalResult = result;
+                if (result == GuessResult.CORRECT) {
+                    break;
+                }
+//            System.out.println(guessCount);
+            }
+            continueGame();
+        }
     }
 }
