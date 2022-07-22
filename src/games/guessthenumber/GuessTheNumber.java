@@ -1,4 +1,4 @@
-package games;
+package games.guessthenumber;
 
 import java.util.Random;
 import java.util.Scanner;
